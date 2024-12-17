@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hacked!</title>
+  <style>
+    body {
+      background-color: black;
+      color: #00ff00;
+      font-family: monospace;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+    }
+
+    .loading-text {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .spinner {
+      border: 8px solid #333;
+      border-top: 8px solid #00ff00;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    #hacker-container {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-size: 18px;
+      margin: 20px;
+      display: none;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .cursor {
+      display: inline-block;
+      background-color: #00ff00;
+      width: 10px;
+      height: 18px;
+      animation: blink 0.5s step-end infinite;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loading-text">System Initialization...</div>
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Hacker Effect -->
+  <div id="hacker-container"></div>
+  <div class="cursor"></div>
+
+  <script>
+    const hackerText = [
+      "Accessing system...",
+      "Bypassing security protocols...",
+      "Extracting sensitive data...",
+      "Connection established to server 192.168.1.1",
+      "Injecting malicious scripts...",
+      "Encryption keys cracked.",
+      "Transferring files...",
+      "HACK COMPLETE."
+    ];
+
+    const container = document.getElementById("hacker-container");
+    const loader = document.getElementById("loader");
+    let i = 0;
+
+    // Simulate typing effect
+    function typeLine(line, callback) {
+      let j = 0;
+      const interval = setInterval(() => {
+        if (j < line.length) {
+          container.innerHTML += line[j];
+          j++;
+        } else {
+          clearInterval(interval);
+          container.innerHTML += "\n";
+          callback();
+        }
+      }, 50);
+    }
+
+    function startTyping() {
+      if (i < hackerText.length) {
+        typeLine(hackerText[i], () => {
+          i++;
+          startTyping();
+        });
+      }
+    }
+
+    // Show hacker effect after loader
+    setTimeout(() => {
+      loader.style.display = "none";
+      container.style.display = "block";
+      startTyping();
+    }, 5000); // 5 seconds loading
+  </script>
+</body>
+</html>
